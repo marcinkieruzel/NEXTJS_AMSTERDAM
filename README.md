@@ -1,7 +1,7 @@
 # Real Estate Web Page Simulation
  
  
-1. We are going to create web page of an Real Estate Business. Our job is to show an offer to potential clients, let them choose the property of their interest and send a requirement via form.
+1. We are going to create web page of an Real Estate Business. Our job is to show an offer to potential clients, let them choose the property of their interest and send their choices via form.
 2. We will be using json-server to mock an api
 ``` ./node_modules/.bin/json-server --watch ./data/feed.json --port 3004```
 Execute the command and check the browser or postman http://localhost:3004. You can make a regular http get request to this resource.
