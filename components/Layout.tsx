@@ -1,41 +1,32 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
+import React from "react";
 
 type Props = {
-  children?: ReactNode
-  title?: string
-}
+  children: React.ReactNode;
+};
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/about">
-          <a>About</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
-      </nav>
-    </header>
-    {children}
-    <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer>
-  </div>
-)
+const Layout: React.FC<Props> = ({ children }): JSX.Element => {
+  return (
+    <div>
+      <ul className="container nav">
+        <li className="nav-item">
+          <a className="nav-link active" href="/">
+            Home
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/properties">
+            Properties
+          </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/myproperties">
+            My properties
+          </a>
+        </li>
+      </ul>
+      {children}
+    </div>
+  );
+};
 
-export default Layout
+export default Layout;
