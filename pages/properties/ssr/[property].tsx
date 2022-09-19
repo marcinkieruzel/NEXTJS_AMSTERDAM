@@ -5,9 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 
-type Props = {};
+type Props = {
+  property: any;
+};
 
-const Property: React.FC<Props> = ({}): JSX.Element => {
+const Property: React.FC<Props> = ({ property }): JSX.Element => {
   return (
     <section className="container">
       <hr />
@@ -52,7 +54,7 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
       <hr />
       <div className="row">
         <div className="col-9">
-          <h1>HYATT DA NANG BLOCK D 3 BEDROOM APARTMENT FOR RENT</h1>
+          <h1>{property.title}</h1>
           <h2>Price: 20000$</h2>
 
           <p className="lead">
@@ -79,3 +81,26 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
 };
 
 export default Property;
+
+export async function getServerSideProps(context) {
+  console.log("Probably I'm on a server Isnt it");
+
+  try {
+    const res = await fetch(
+      `http://localhost:3004/properties/${context.params.property}`
+    );
+    const json = await res.json();
+
+    return {
+      props: {
+        property: json,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        property: {},
+      },
+    };
+  }
+}

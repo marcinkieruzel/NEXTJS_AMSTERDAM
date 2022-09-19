@@ -5,9 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 
-type Props = {};
+type Props = {
+  property: any
+};
 
-const Property: React.FC<Props> = ({}): JSX.Element => {
+const Property: React.FC<Props> = ({property}): JSX.Element => {
   return (
     <section className="container">
       <hr />
@@ -52,8 +54,8 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
       <hr />
       <div className="row">
         <div className="col-9">
-          <h1>HYATT DA NANG BLOCK D 3 BEDROOM APARTMENT FOR RENT</h1>
-          <h2>Price: 20000$</h2>
+          <h1>{property.title}</h1>
+          <h2>Price: {property.fields.price}$</h2>
 
           <p className="lead">
             "The Hyatt Regency Danang Residences is an exclusive lifestyle
@@ -79,3 +81,48 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
 };
 
 export default Property;
+
+export async function getStaticPaths() {
+  try {
+    const res = await fetch("http://localhost:3004/properties");
+    const json = await res.json();
+
+    return {
+      paths: json.map((x) => {
+        return { params: {property: String(x.id)} };
+      }),
+      // [{ params: { property: "1" } }, { params: { id: "2" } }],
+      fallback: false, // can also be true or 'blocking'
+    };
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: false, // can also be true or 'blocking'
+    };
+  }
+}
+
+export async function getStaticProps(context) {
+  console.log("Ok, I'm revalidating the stale content");
+
+  try {
+    const res = await fetch(
+      `http://localhost:3004/properties/${context.params.property}`
+    );
+    const json = await res.json();
+
+    return {
+      props: {
+        property: json,
+      },
+      revalidate: 10
+    };
+  } catch (error) {
+    return {
+      props: {
+        property: {},
+      },
+      revalidate: 10
+    };
+  }
+}
