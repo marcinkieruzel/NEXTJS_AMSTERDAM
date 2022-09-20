@@ -24,7 +24,8 @@ experimental: {
 - ```docker network create -d overlay nextNetwork```
 - ```docker-compose -f docker-compose.dev.yml build```
 - ```docker-compose -f docker-compose.dev.yml up```
-for production use:
+
+- for production use:
 - ```docker stack deploy -c docker-compose.yml my-stack```
  
 4. PM2
