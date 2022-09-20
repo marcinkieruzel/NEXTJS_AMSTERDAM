@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  next:
+    image: name-of-your-image 
+    ports: 
+      - 3002:3000
+    volumes:
+      - nextVolume:/app/.next
+    networks:
+      - nextNetwork
+    deploy:
+      replicas: 3
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  nextVolume:
+
+networks:
+  nextNetwork:
+    external: true

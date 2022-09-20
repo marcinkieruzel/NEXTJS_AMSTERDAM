@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "my-app",
+            "script": "node_modules/.bin/next",
+            "args": "start",
+            "cwd": "./",
+            "instances": "max",
+            "exec_mode": "cluster"
+        }
+    ]
+}

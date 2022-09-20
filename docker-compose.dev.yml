@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  next:
+    context: .
+    ports: 
+      - 3004:3000
+    volumes:
+      - nextVolume:/app/.next
+
+volumes:
+  nextVolume:

@@ -3,6 +3,10 @@ module.exports = {
   images: {
     domains: ["cvr.com.vn"],
   },
+  experimental: {
+    isrMemoryCacheSize: 0,
+  },
+
   webpack(config, options) {
     config.module.rules.push({
       test: /\.ya?ml$/,
