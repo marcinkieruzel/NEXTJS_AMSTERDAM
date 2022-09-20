@@ -31,4 +31,5 @@ experimental: {
 4. PM2
 - install ```npm install -g pm2```
 - create a file ```pm2.json``` same as the one visible in this repo and run it with ```pm2 start pm2.json```. In this case we use cluster mode for spawning the process on each thread
+- to monitor pm2 take a look at https://pm2.keymetrics.io/docs/usage/monitoring/ 
 
