@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserChoicesContex } from "./_app";
 
 type Props = {};
 
 const Myproperties: React.FC<Props> = ({}): JSX.Element => {
+
+  const context = useContext(UserChoicesContex)
+
   return (
     <section className="container">
       <ul className="list-group">
-        <li className="list-group-item">Property name with link</li>
+
+          {
+            context.userChoices.map((x,i) => {
+              return <li key={i} className="list-group-item">{x.title}</li>
+            })
+          }
+
+        
       </ul>
       <hr />
       <form>

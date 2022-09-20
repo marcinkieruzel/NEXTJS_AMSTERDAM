@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { UserChoicesContex } from "../../_app";
+import { Property } from "../../../interfaces";
 
-type Props = {};
+type Props = {
+  property: Property;
+};
 
-const Property: React.FC<Props> = ({}): JSX.Element => {
+const Property: React.FC<Props> = ({ property }): JSX.Element => {
+  const userContext = useContext(UserChoicesContex);
   return (
     <section className="container">
       <hr />
@@ -69,7 +74,16 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
         </div>
 
         <div className="col-3">
-          <button type="button" className="btn btn-primary">
+          <button
+            onClick={() => {
+              userContext.setUserChoices([
+                ...userContext.userChoices,
+                property,
+              ]);
+            }}
+            type="button"
+            className="btn btn-primary"
+          >
             I'm interested in this property
           </button>
         </div>
@@ -79,3 +93,46 @@ const Property: React.FC<Props> = ({}): JSX.Element => {
 };
 
 export default Property;
+
+export async function getStaticPaths() {
+  try {
+    const res = await fetch("http://localhost:3004/properties");
+    const json = await res.json();
+
+    return {
+      paths: json.map((x) => {
+        return { params: { property: String(x.id) } };
+      }),
+      // [{ params: { property: "1" } }, { params: { id: "2" } }],
+      fallback: false, // can also be true or 'blocking'
+    };
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: false, // can also be true or 'blocking'
+    };
+  }
+}
+
+export async function getStaticProps(context) {
+  console.log("Ok, I'm revalidating the stale content");
+
+  try {
+    const res = await fetch(
+      `http://localhost:3004/properties/${context.params.property}`
+    );
+    const json = await res.json();
+
+    return {
+      props: {
+        property: json,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        property: {},
+      },
+    };
+  }
+}

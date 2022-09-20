@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -9,19 +10,23 @@ const Layout: React.FC<Props> = ({ children }): JSX.Element => {
     <div>
       <ul className="container nav">
         <li className="nav-item">
-          <a className="nav-link active" href="/">
-            Home
-          </a>
+          <Link href="/">
+            <a className="nav-link active">Home</a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/properties">
-            Properties
-          </a>
+          <Link href="/properties">
+            <a className="nav-link" href="/properties">
+              Properties
+            </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/myproperties">
-            My properties
-          </a>
+          <Link href="/myproperties">
+            <a className="nav-link" href="/myproperties">
+              My properties
+            </a>
+          </Link>
         </li>
       </ul>
       {children}

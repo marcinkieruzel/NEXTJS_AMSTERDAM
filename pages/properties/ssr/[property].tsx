@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { UserChoicesContex } from "../../_app";
 
 type Props = {
   property: any;
 };
 
 const Property: React.FC<Props> = ({ property }): JSX.Element => {
+    const userContext = useContext(UserChoicesContex)
   return (
     <section className="container">
       <hr />
@@ -71,7 +73,9 @@ const Property: React.FC<Props> = ({ property }): JSX.Element => {
         </div>
 
         <div className="col-3">
-          <button type="button" className="btn btn-primary">
+          <button onClick={() => {
+            userContext.setUserChoices([...userContext.userChoices, property])
+          }} type="button" className="btn btn-primary">
             I'm interested in this property
           </button>
         </div>
