@@ -3,7 +3,7 @@
 1. Docker – this is quite easy
 -  ```docker build -t nextjs-docker .```
 - ```docker run -p 3000:3000 nextjs-docker```
-- take a look at `pages/_document.tsx` there is a important part part for graceful shutdown
+- take a look at `pages/_document.tsx` there is a important part for graceful shutdown
  
 2. To use swarm you have to initialize it
 - ```docker swarm init```
